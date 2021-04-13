@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Net;
 using System.Net.Sockets;
-using System.Net.NetworkInformation;
 using System.Text;
-using System.Diagnostics;
 
 namespace Lab2
 {
+// Класс для работы с ICMP-пакетами
     class ICMP
     {
         public byte Type;
@@ -60,6 +59,7 @@ namespace Lab2
     {
         public static void Tracert(String remoteHost)
         {
+
             byte[] data = new byte[1024];
             int recv = 0;
             int maxHops = 30;
@@ -71,7 +71,6 @@ namespace Lab2
                 IPEndPoint iep = new IPEndPoint(iphe.AddressList[0], 0);
                 EndPoint ep = (EndPoint)iep;
                 ICMP packet = new ICMP();
-                Stopwatch stopWatch = new Stopwatch();
 
                 packet.Type = 0x08;
                 packet.Code = 0x00;
@@ -160,11 +159,7 @@ namespace Lab2
 
         static void Main(string[] args)
         {
-            string InpIP;
-            Console.WriteLine("Enter IP or Host name:");
-            InpIP = Console.ReadLine();
-            Tracert(InpIP);
-            Console.Read();
+            Tracert(args[0]);
         }
     }
 }
